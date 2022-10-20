@@ -8,11 +8,7 @@ import {
 const runScript = async () => {
   // const result = await getTreasuryPrices();
   // const result = await getTreasuryPricesHistorical(2022, 10, 14);
-  console.log("get treasury security metadata");
   const result = await getTreasurySecurityMetadata();
-  console.log("complete");
-  console.log(result);
-  // console.log(result);
 };
 
 // Create GET route and return users
