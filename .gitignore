@@ -1,6 +1,8 @@
 # dependencies
 node_modules/
 static/
+dist/
+local/
 
 # logs
 npm-debug.log*

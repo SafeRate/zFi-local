@@ -92,8 +92,8 @@ const getTreasuryDataFromStream = async (): Promise<any> => {
 export const getTreasuryDataFromFile = async () => {
   let securities: TreasurySecurityRaw[] = [];
 
-  const securitiesBuffer = await storage.readBuffer(
-    "/securities/treasurySecurities.json"
+  const securitiesBuffer = fs.readFileSync(
+    "/home/dmhall2/coding/zfi-local/local/treasurySecurities.json"
   );
 
   if (securitiesBuffer) {

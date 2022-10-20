@@ -1,5 +1,10 @@
 import { api, data, schedule, params } from "@serverless/cloud";
 import {
+  createWEFIUSD,
+  getIdForWEFIUSD,
+  getWEFIUSD,
+} from "./src/algorand/algorand";
+import {
   getTreasuryPrices,
   getTreasuryPricesHistorical,
   getTreasurySecurityMetadata,
@@ -8,7 +13,10 @@ import {
 const runScript = async () => {
   // const result = await getTreasuryPrices();
   // const result = await getTreasuryPricesHistorical(2022, 10, 14);
-  const result = await getTreasurySecurityMetadata();
+  // const result = await getTreasurySecurityMetadata();
+  // await createWEFIUSD();
+
+  console.log(getIdForWEFIUSD());
 };
 
 // Create GET route and return users

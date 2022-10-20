@@ -201,133 +201,133 @@ export type TreasurySecurityRaw = {
 };
 
 export type TreasurySecurity = {
-  cusip: string;
-  issueDate: ISODateNoZ;
-  securityType: TreasurySecurityType;
-  securityTerm: string;
-  securityTermUnit: TreasurySecurityTermUnit;
-  securityTermNumber: number;
-  maturityDate: ISODateNoZ;
-  interestRate: number;
-  refCpiOnIssueDate: number;
-  refCpiOnDatedDate: number;
-  announcementDate: ISODateNoZ;
-  auctionDate: ISODateNoZ;
-  auctionDateYear: number;
-  datedDate: ISODateNoZ;
-  accruedInterestPer1000: number;
-  accruedInterestPer100: number;
-  adjustedAccruedInterestPer1000: number;
-  adjustedPrice: number;
-  allocationPercentage: number;
-  allocationPercentageDecimals: number;
-  announcedCusip: string;
-  auctionFormat: TreasuryAuctionFormat;
-  averageMedianDiscountRate: number;
-  averageMedianInvestmentRate: number;
-  averageMedianPrice: number;
-  averageMedianDiscountMargin: number;
-  averageMedianYield: number;
-  backDated: boolean;
-  backDatedDate: ISODateNoZ;
-  bidToCoverRatio: number;
-  callDate: ISODateNoZ;
-  callable: boolean;
-  calledDate: ISODateNoZ;
-  cashManagementBillCMB: boolean;
-  closingTimeCompetitive: string;
-  closingTimeNoncompetitive: string;
-  competitiveAccepted: number;
-  competitiveBidDecimals: number;
-  competitiveTendered: number;
-  competitiveTendersAccepted: boolean;
-  corpusCusip: string;
-  cpiBaseReferencePeriod: string;
-  currentlyOutstanding: number;
-  directBidderAccepted: number;
-  directBidderTendered: number;
-  estimatedAmountOfPubliclyHeldMaturingSecuritiesByType: number;
-  fimaIncluded: boolean;
-  fimaNoncompetitiveAccepted: number;
-  fimaNoncompetitiveTendered: number;
-  firstInterestPeriod: TreasuryFirstInterestPeriod;
-  firstInterestPaymentDate: ISODateNoZ;
-  floatingRate: boolean;
-  frnIndexDeterminationDate: ISODateNoZ;
-  frnIndexDeterminationRate: number;
-  highDiscountRate: number;
-  highInvestmentRate: number;
-  highPrice: number;
-  highDiscountMargin: number;
-  highYield: number;
-  indexRatioOnIssueDate: number;
-  indirectBidderAccepted: number;
-  indirectBidderTendered: number;
-  interestPaymentFrequency: TreasuryInterestPaymentFrequency;
-  lowDiscountRate: number;
-  lowInvestmentRate: number;
-  lowPrice: number;
-  lowDiscountMargin: number;
-  lowYield: number;
-  maturingDate: ISODateNoZ;
-  maximumCompetitiveAward: number;
-  maximumNoncompetitiveAward: number;
-  maximumSingleBid: number;
-  minimumBidAmount: number;
-  minimumStripAmount: number;
-  minimumToIssue: number;
-  multiplesToBid: number;
-  multiplesToIssue: number;
-  nlpExclusionAmount: number;
-  nlpReportingThreshold: number;
-  noncompetitiveAccepted: number;
-  noncompetitiveTendersAccepted: boolean;
-  offeringAmount: number;
-  originalCusip: string;
-  originalDatedDate: ISODateNoZ;
-  originalIssueDate: ISODateNoZ;
-  originalSecurityTerm: string;
-  originalSecurityTermUnit: TreasurySecurityTermUnit;
-  originalSecurityTermNumber: number;
-  pdfFilenameAnnouncement: string;
-  pdfFilenameCompetitiveResults: string;
-  pdfFilenameNoncompetitiveResults: string;
-  pdfFilenameSpecialAnnouncement: string;
-  pricePer100: number;
-  primaryDealerAccepted: number;
-  primaryDealerTendered: number;
-  reopening: boolean;
-  securityTermDayMonth: string;
-  securityTermWeekYear: string;
-  series: string;
-  somaAccepted: number;
-  somaHoldings: number;
-  somaIncluded: boolean;
-  somaTendered: number;
-  spread: number;
-  standardInterestPaymentPer1000: number;
-  strippable: boolean;
-  term: TreasuryTerm;
-  termNumber: number;
-  termUnit: TreasurySecurityTermUnit;
-  tiinConversionFactorPer1000: number;
-  tips: boolean;
-  totalAccepted: number;
-  totalTendered: number;
-  treasuryDirectAccepted: number;
-  treasuryDirectTendersAccepted: boolean;
-  type: TreasuryType;
-  unadjustedAccruedInterestPer1000: number;
-  unadjustedPrice: number;
-  updatedTimestamp: ISODateNoZ;
-  xmlFilenameAnnouncement: string;
-  xmlFilenameCompetitiveResults: string;
-  xmlFilenameSpecialAnnouncement: string;
-  tintCusip1: string;
-  tintCusip2: string;
+  cusip: string | null;
+  issueDate: ISODateNoZ | null;
+  securityType: TreasurySecurityType | null;
+  securityTerm: string | null;
+  securityTermUnit: TreasurySecurityTermUnit | null;
+  securityTermNumber: number | null;
+  maturityDate: ISODateNoZ | null;
+  interestRate: number | null;
+  refCpiOnIssueDate: number | null;
+  refCpiOnDatedDate: number | null;
+  announcementDate: ISODateNoZ | null;
+  auctionDate: ISODateNoZ | null;
+  auctionDateYear: number | null;
+  datedDate: ISODateNoZ | null;
+  accruedInterestPer1000: number | null;
+  accruedInterestPer100: number | null;
+  adjustedAccruedInterestPer1000: number | null;
+  adjustedPrice: number | null;
+  allocationPercentage: number | null;
+  allocationPercentageDecimals: number | null;
+  announcedCusip: string | null;
+  auctionFormat: TreasuryAuctionFormat | null;
+  averageMedianDiscountRate: number | null;
+  averageMedianInvestmentRate: number | null;
+  averageMedianPrice: number | null;
+  averageMedianDiscountMargin: number | null;
+  averageMedianYield: number | null;
+  backDated: boolean | null;
+  backDatedDate: ISODateNoZ | null;
+  bidToCoverRatio: number | null;
+  callDate: ISODateNoZ | null;
+  callable: boolean | null;
+  calledDate: ISODateNoZ | null;
+  cashManagementBillCMB: boolean | null;
+  closingTimeCompetitive: string | null;
+  closingTimeNoncompetitive: string | null;
+  competitiveAccepted: number | null;
+  competitiveBidDecimals: number | null;
+  competitiveTendered: number | null;
+  competitiveTendersAccepted: boolean | null;
+  corpusCusip: string | null;
+  cpiBaseReferencePeriod: string | null;
+  currentlyOutstanding: number | null;
+  directBidderAccepted: number | null;
+  directBidderTendered: number | null;
+  estimatedAmountOfPubliclyHeldMaturingSecuritiesByType: number | null;
+  fimaIncluded: boolean | null;
+  fimaNoncompetitiveAccepted: number | null;
+  fimaNoncompetitiveTendered: number | null;
+  firstInterestPeriod: TreasuryFirstInterestPeriod | null;
+  firstInterestPaymentDate: ISODateNoZ | null;
+  floatingRate: boolean | null;
+  frnIndexDeterminationDate: ISODateNoZ | null;
+  frnIndexDeterminationRate: number | null;
+  highDiscountRate: number | null;
+  highInvestmentRate: number | null;
+  highPrice: number | null;
+  highDiscountMargin: number | null;
+  highYield: number | null;
+  indexRatioOnIssueDate: number | null;
+  indirectBidderAccepted: number | null;
+  indirectBidderTendered: number | null;
+  interestPaymentFrequency: TreasuryInterestPaymentFrequency | null;
+  lowDiscountRate: number | null;
+  lowInvestmentRate: number | null;
+  lowPrice: number | null;
+  lowDiscountMargin: number | null;
+  lowYield: number | null;
+  maturingDate: ISODateNoZ | null;
+  maximumCompetitiveAward: number | null;
+  maximumNoncompetitiveAward: number | null;
+  maximumSingleBid: number | null;
+  minimumBidAmount: number | null;
+  minimumStripAmount: number | null;
+  minimumToIssue: number | null;
+  multiplesToBid: number | null;
+  multiplesToIssue: number | null;
+  nlpExclusionAmount: number | null;
+  nlpReportingThreshold: number | null;
+  noncompetitiveAccepted: number | null;
+  noncompetitiveTendersAccepted: boolean | null;
+  offeringAmount: number | null;
+  originalCusip: string | null;
+  originalDatedDate: ISODateNoZ | null;
+  originalIssueDate: ISODateNoZ | null;
+  originalSecurityTerm: string | null;
+  originalSecurityTermUnit: TreasurySecurityTermUnit | null;
+  originalSecurityTermNumber: number | null;
+  pdfFilenameAnnouncement: string | null;
+  pdfFilenameCompetitiveResults: string | null;
+  pdfFilenameNoncompetitiveResults: string | null;
+  pdfFilenameSpecialAnnouncement: string | null;
+  pricePer100: number | null;
+  primaryDealerAccepted: number | null;
+  primaryDealerTendered: number | null;
+  reopening: boolean | null;
+  securityTermDayMonth: string | null;
+  securityTermWeekYear: string | null;
+  series: string | null;
+  somaAccepted: number | null;
+  somaHoldings: number | null;
+  somaIncluded: boolean | null;
+  somaTendered: number | null;
+  spread: number | null;
+  standardInterestPaymentPer1000: number | null;
+  strippable: boolean | null;
+  term: TreasuryTerm | null;
+  termNumber: number | null;
+  termUnit: TreasurySecurityTermUnit | null;
+  tiinConversionFactorPer1000: number | null;
+  tips: boolean | null;
+  totalAccepted: number | null;
+  totalTendered: number | null;
+  treasuryDirectAccepted: number | null;
+  treasuryDirectTendersAccepted: boolean | null;
+  type: TreasuryType | null;
+  unadjustedAccruedInterestPer1000: number | null;
+  unadjustedPrice: number | null;
+  updatedTimestamp: ISODateNoZ | null;
+  xmlFilenameAnnouncement: string | null;
+  xmlFilenameCompetitiveResults: string | null;
+  xmlFilenameSpecialAnnouncement: string | null;
+  tintCusip1: string | null;
+  tintCusip2: string | null;
 };
 
-const parseTreasuryString = (value: string): string | null => {
+const parseTreasuryString = (value: string | null): string | null => {
   if (typeof value === "string" && value !== "") {
     return value;
   } else {
@@ -336,7 +336,7 @@ const parseTreasuryString = (value: string): string | null => {
 };
 
 const parseTreasuryFirstInterestPeriod = (
-  value: string
+  value: string | null
 ): TreasuryFirstInterestPeriod | null => {
   value = parseTreasuryString(value);
   if (value) {
@@ -356,7 +356,7 @@ const parseTreasuryFirstInterestPeriod = (
 };
 
 const parseTreasuryInterestPaymentFrequency = (
-  value: string
+  value: string | null
 ): TreasuryInterestPaymentFrequency | null => {
   value = parseTreasuryString(value);
   if (value) {
@@ -382,7 +382,7 @@ const parseTreasuryInterestPaymentFrequency = (
 };
 
 const parseTreasuryAuctionFormat = (
-  value: string
+  value: string | null
 ): TreasuryAuctionFormat | null => {
   value = parseTreasuryString(value);
   if (value) {
@@ -401,7 +401,7 @@ const parseTreasuryAuctionFormat = (
   }
 };
 
-const parseTreasuryType = (value: string): TreasuryType | null => {
+const parseTreasuryType = (value: string | null): TreasuryType | null => {
   value = parseTreasuryString(value);
   if (value) {
     value = value.toLowerCase();
@@ -426,7 +426,7 @@ const parseTreasuryType = (value: string): TreasuryType | null => {
 };
 
 const parseTreasurySecurityType = (
-  value: string
+  value: string | null
 ): TreasurySecurityType | null => {
   value = parseTreasuryString(value);
   if (value) {
@@ -445,7 +445,7 @@ const parseTreasurySecurityType = (
   }
 };
 
-const parseTreasuryTerm = (value: string): TreasuryTerm | null => {
+const parseTreasuryTerm = (value: string | null): TreasuryTerm | null => {
   value = parseTreasuryString(value);
   if (value) {
     value = value.toLowerCase();
@@ -485,7 +485,7 @@ const parseTreasuryTerm = (value: string): TreasuryTerm | null => {
   }
 };
 
-const parseTreasuryDecimal = (value: StringDecimal): number | null => {
+const parseTreasuryDecimal = (value: StringDecimal | null): number | null => {
   value = parseTreasuryString(value);
   if (value) {
     try {
@@ -503,7 +503,7 @@ const parseTreasuryDecimal = (value: StringDecimal): number | null => {
   }
 };
 
-const parseTreasuryInt = (value: StringInt): number | null => {
+const parseTreasuryInt = (value: StringInt | null): number | null => {
   value = parseTreasuryString(value);
   if (value) {
     try {
@@ -521,7 +521,7 @@ const parseTreasuryInt = (value: StringInt): number | null => {
   }
 };
 
-const parseTreasuryYesNo = (value: StringYesNo): boolean | null => {
+const parseTreasuryYesNo = (value: StringYesNo | null): boolean | null => {
   value = parseTreasuryString(value);
   if (value) {
     if (value.toLowerCase() === "yes") {
@@ -536,7 +536,7 @@ const parseTreasuryYesNo = (value: StringYesNo): boolean | null => {
   }
 };
 
-const parseISODateNoZ = (value: ISODateNoZ): ISODateNoZ | null => {
+const parseISODateNoZ = (value: ISODateNoZ | null): ISODateNoZ | null => {
   value = parseTreasuryString(value);
   if (value) {
     let dateValue = moment(value, "MM-DD-YYYYTHH:mm:ss");
@@ -551,7 +551,7 @@ const parseISODateNoZ = (value: ISODateNoZ): ISODateNoZ | null => {
 };
 
 const parseTreasurySecurityTermUnit = (
-  value: string
+  value: string | null
 ): TreasurySecurityTermUnit | null => {
   value = parseTreasuryString(value);
   if (value) {
@@ -577,7 +577,9 @@ const parseTreasurySecurityTermUnit = (
   }
 };
 
-const parseTreasurySecurityTermNumber = (value: string): number | null => {
+const parseTreasurySecurityTermNumber = (
+  value: string | null
+): number | null => {
   value = parseTreasuryString(value);
   if (value) {
     const values = value.split("-");

@@ -23,6 +23,10 @@ export const getTestUserAccount = (): AlgorandAccount => {
   };
 };
 
+export const getIdForWEFIUSD = () => {
+  return 27;
+};
+
 export const createWEFIUSD = async (): Promise<any> => {
   const algorandConnection = await getAlgorandNetworkConnection();
   const treasuryAccount = getTreasuryAccount();
