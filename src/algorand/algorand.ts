@@ -140,3 +140,71 @@ export const getAlgorandNetworkConnection =
       indexerClient,
     };
   };
+
+export const createSecurityToken = async ({
+  assetName,
+  decimals,
+  total,
+  unitName,
+}: {
+  assetName: string;
+  decimals: number;
+  total: number;
+  unitName: string;
+}) => {
+  const { algodClient } = await getAlgorandNetworkConnection();
+  const params = await algodClient.getTransactionParams().do();
+  const treasuryAccount = getTreasuryAccount().address;
+  const defaultFrozen = false;
+  const from = treasuryAccount;
+  const managerAddr = treasuryAccount;
+  const reserveAddr = treasuryAccount;
+  const freezeAddr = treasuryAccount;
+  const clawbackAddr = treasuryAccount;
+  const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
+    from,
+    total,
+    decimals,
+    assetName,
+    unitName,
+    defaultFrozen,
+    freeze: freezeAddr,
+    manager: managerAddr,
+    clawback: clawbackAddr,
+    reserve: reserveAddr,
+    suggestedParams: params,
+  });
+
+  const rawSignedTxn = txn.signTxn(mnemonicToSecretKey(treasuryAccount).sk);
+  const tx = await algodClient.sendRawTransaction(rawSignedTxn).do();
+
+  let assetID = null;
+  const ptx = await algosdk.waitForConfirmation(algodClient, tx.txId, 4);
+  assetID = ptx["asset-index"];
+  console.log(
+    "Transaction " + tx.txId + " confirmed in round " + ptx["confirmed-round"]
+  );
+
+  console.log(
+    `Unit name: ${unitName} Asset name: ${assetName} Asset ID: ${assetID} created`
+  );
+};
+
+export const createSecurityTokens = async () => {
+  const tokens = [
+    { unitName: "WT221120", assetName: "WEFI Treasury 2022-11-20" },
+    { unitName: "WT230119", assetName: "WEFI Treasury 2023-01-19" },
+    { unitName: "WT230419", assetName: "WEFI Treasury 2023-04-19" },
+    { unitName: "WT231020", assetName: "WEFI Treasury 2023-10-20" },
+    { unitName: "WSRM0001", assetName: "WEFI SRM Series 1" },
+  ];
+
+  for await (const [i, { assetName, unitName }] of tokens.entries()) {
+    await createSecurityToken({
+      assetName,
+      decimals: 2,
+      total: 100000,
+      unitName,
+    });
+  }
+};
