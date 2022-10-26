@@ -1,5 +1,9 @@
 import moment from "moment";
 
+export type TreasurySecuritiesMap = {
+  [key: string]: TreasurySecurity;
+};
+
 export type TreasuryPrice = {
   cusip: string;
   type: string | null;

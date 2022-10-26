@@ -2,6 +2,7 @@ import {
   getTreasuryFromPricesFormat,
   getTreasurySecurityFromTreasurySecurityRaw,
   TreasuryPrice,
+  TreasurySecuritiesMap,
   TreasurySecurity,
   TreasurySecurityRaw,
 } from "./treasury";
@@ -73,19 +74,9 @@ const getTreasuryDataFromStream = async (): Promise<any> => {
     validateStatus: null,
   });
 
-  console.log("b");
-  console.log("b1");
-
   response.data.pipe(writer);
-
-  console.log("c");
-
   await finishedDownload(writer);
   const result = await fs.readFileSync(filePath);
-
-  console.log(result);
-  console.log("hilo");
-
   return result;
 };
 
@@ -106,30 +97,40 @@ export const getTreasuryDataFromFile = async () => {
   return securities;
 };
 
-export const getTreasurySecurityMetadata = async (): Promise<
-  TreasurySecurity[]
-> => {
-  const securities: TreasurySecurity[] = [];
+export const getTreasurySecurityMetadata =
+  async (): Promise<TreasurySecuritiesMap> => {
+    const securities: TreasurySecurity[] = [];
 
-  try {
-    const securitiesRaw: TreasurySecurityRaw[] =
-      await getTreasuryDataFromFile();
+    try {
+      const securitiesRaw: TreasurySecurityRaw[] =
+        await getTreasuryDataFromFile();
 
-    if (Array.isArray(securitiesRaw)) {
-      for (let sr = 0; sr < securitiesRaw.length; sr++) {
-        const security: TreasurySecurity =
-          getTreasurySecurityFromTreasurySecurityRaw(securitiesRaw[sr]);
-        securities.push(security);
+      if (Array.isArray(securitiesRaw)) {
+        for (let sr = 0; sr < securitiesRaw.length; sr++) {
+          const security: TreasurySecurity =
+            getTreasurySecurityFromTreasurySecurityRaw(securitiesRaw[sr]);
+          securities.push(security);
+        }
+      } else {
+        throw new Error("There was no treasury securities data!");
       }
-    } else {
-      throw new Error("There was no treasury securities data!");
+    } catch (error) {
+      throw new Error("uanble to load securities file!");
     }
-  } catch (error) {
-    throw new Error("uanble to load securities file!");
-  }
 
-  return securities;
-};
+    const treasurySecurityDict: TreasurySecuritiesMap = {};
+
+    if (Array.isArray(securities) && securities.length > 0) {
+      for (let s = 0; s < securities.length; s++) {
+        const security = securities[s];
+        if (security.cusip) {
+          treasurySecurityDict[security.cusip] = security;
+        }
+      }
+    }
+
+    return treasurySecurityDict;
+  };
 
 export const getTreasuryPricesHistorical = async function (
   year: number,

@@ -1,6 +1,10 @@
 import algosdk, { mnemonicToSecretKey } from "algosdk";
 import MyAlgoConnect, { Accounts } from "@randlabs/myalgo-connect";
 import IndexerClient from "algosdk/dist/types/src/client/v2/indexer/indexer";
+import { env } from "../utility/env";
+import { getTreasurySecurityMetadata } from "../utility/treasury/treasuryData";
+import { TreasurySecurity } from "../utility/treasury/treasury";
+import { uploadTreasuryMetadataToNFTStorage } from "../utility/nftStorage/nftStorage";
 
 export type AlgorandAccount = {
   address: string;
@@ -9,17 +13,15 @@ export type AlgorandAccount = {
 
 export const getTreasuryAccount = (): AlgorandAccount => {
   return {
-    address: "NIOZNHERQBVYVT5OCYHT4VAJI4OOROXSEQUUQR6YPHZMWHMCPNSAK4GKBE",
-    mnenomic:
-      "mechanic assume account hand hill lucky trip position total symbol next wrap subway scatter glass mechanic sound vacuum vintage pen abuse foster pizza ability friend",
+    address: env.TREASURY_ADDRESS,
+    mnenomic: env.TREASURY_MNEMONIC,
   };
 };
 
 export const getTestUserAccount = (): AlgorandAccount => {
   return {
-    address: "VJSOWZXI3NOLZCGRN5Q4ZDGRCCIXYZKNB22BN7X4DW5WPGMKOXIGWHKJBA",
-    mnenomic:
-      "oven gesture together once junk salad giant atom flavor blanket whisper boss broken unfold remember shell check brain list head aisle deliver symbol above employ",
+    address: env.USER_ADDRESS,
+    mnenomic: env.USER_MNEMONIC,
   };
 };
 
@@ -120,14 +122,14 @@ export type MyAlgoNetworkConnection = {
 export const getAlgorandNetworkConnection =
   async (): Promise<MyAlgoNetworkConnection> => {
     const algodClient: algosdk.Algodv2 = new algosdk.Algodv2(
-      `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`,
-      `http://localhost`,
-      4001
+      env.ALGOD_SIGNATURE,
+      env.ALGOD_CONNECTION,
+      env.ALGOD_PORT
     );
     const indexerClient: IndexerClient = new algosdk.Indexer(
-      `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`,
-      `http://localhost`,
-      8980
+      env.INDEXER_SIGNATURE,
+      env.INDEXER_CONNECTION,
+      env.INDEXER_PORT
     );
 
     const algodParams: algosdk.SuggestedParams = await algodClient
@@ -146,21 +148,28 @@ export const createSecurityToken = async ({
   decimals,
   total,
   unitName,
+  treasurySecurity,
 }: {
   assetName: string;
   decimals: number;
   total: number;
   unitName: string;
+  treasurySecurity: TreasurySecurity;
 }) => {
   const { algodClient } = await getAlgorandNetworkConnection();
   const params = await algodClient.getTransactionParams().do();
-  const treasuryAccount = getTreasuryAccount().address;
+  const treasury = getTreasuryAccount();
+  const treasuryAccount = treasury.address;
   const defaultFrozen = false;
   const from = treasuryAccount;
   const managerAddr = treasuryAccount;
   const reserveAddr = treasuryAccount;
   const freezeAddr = treasuryAccount;
   const clawbackAddr = treasuryAccount;
+
+  const cid = await uploadTreasuryMetadataToNFTStorage(treasurySecurity);
+  const metadataUrl = `https://nftstorage.link/ipfs/${cid}`;
+
   const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
     from,
     total,
@@ -172,10 +181,11 @@ export const createSecurityToken = async ({
     manager: managerAddr,
     clawback: clawbackAddr,
     reserve: reserveAddr,
+    assetURL: metadataUrl,
     suggestedParams: params,
   });
 
-  const rawSignedTxn = txn.signTxn(mnemonicToSecretKey(treasuryAccount).sk);
+  const rawSignedTxn = txn.signTxn(mnemonicToSecretKey(treasury.mnenomic).sk);
   const tx = await algodClient.sendRawTransaction(rawSignedTxn).do();
 
   let assetID = null;
@@ -191,20 +201,41 @@ export const createSecurityToken = async ({
 };
 
 export const createSecurityTokens = async () => {
+  const treasurySecurities = await getTreasurySecurityMetadata();
+
   const tokens = [
-    { unitName: "WT221120", assetName: "WEFI Treasury 2022-11-20" },
-    { unitName: "WT230119", assetName: "WEFI Treasury 2023-01-19" },
-    { unitName: "WT230419", assetName: "WEFI Treasury 2023-04-19" },
-    { unitName: "WT231020", assetName: "WEFI Treasury 2023-10-20" },
-    { unitName: "WSRM0001", assetName: "WEFI SRM Series 1" },
+    {
+      unitName: "WT221120",
+      assetName: "WEFI Treasury 2022-11-20",
+      treasurySecurity: treasurySecurities["912796YQ6"],
+    },
+    {
+      unitName: "WT230119",
+      assetName: "WEFI Treasury 2023-01-19",
+      treasurySecurity: treasurySecurities["912796XS3"],
+    },
+    {
+      unitName: "WT230419",
+      assetName: "WEFI Treasury 2023-04-19",
+      treasurySecurity: treasurySecurities["912796V48"],
+    },
+    {
+      unitName: "WT231020",
+      assetName: "WEFI Treasury 2023-10-20",
+      treasurySecurity: treasurySecurities["912796YJ2"],
+    },
   ];
 
-  for await (const [i, { assetName, unitName }] of tokens.entries()) {
+  for await (const [
+    i,
+    { assetName, unitName, treasurySecurity },
+  ] of tokens.entries()) {
     await createSecurityToken({
       assetName,
       decimals: 2,
       total: 100000,
       unitName,
+      treasurySecurity,
     });
   }
 };
